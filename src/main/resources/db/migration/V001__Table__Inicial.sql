@@ -14,8 +14,8 @@ Create Table ContasApagar(
 
 );
 
-insert into ContasApagar(data, dataVencimento, valor, idcliente) values ('2023/02/09', '2023/08/10', '190', 1);
-insert into ContasApagar(data, dataVencimento, valor, idcliente) values ('2022/12/09', '2023/10/09', '200', 1);
-insert into ContasApagar(data, dataVencimento, valor, idcliente) values ('2023/12/29', '2024/08/10', '300', 1);
+Alter table ContasApagar add constraint FK_ContasApagar_cliente foreign key (idcliente) REFERENCES cliente(idcliente);
 
-alter table Cliente add contraint FK_ContasApagar_Cliente foreign key (idcliente) references cliente (idcliente);-
+insert into ContasApagar(data, dataVencimento, valor, idcliente) values ('2023/02/09', '2023/08/10', 190, 1);
+insert into ContasApagar(data, dataVencimento, valor, idcliente) values ('2022/12/09', '2023/10/09', 200, 1);
+insert into ContasApagar(data, dataVencimento, valor, idcliente) values ('2023/12/29', '2024/08/10', 300, 1);

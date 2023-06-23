@@ -1,27 +1,31 @@
 package br.com.etec.ariane.trabalhoApi.Respository.filter;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ContasApagarFilter {
 
-    private Date data;
-    private Date datavencimento;
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private LocalDate data;
+    private LocalDate datavencimento;
     private BigDecimal valor;
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
-    public Date getDatavencimento() {
+    public LocalDate getDatavencimento() {
         return datavencimento;
     }
 
-    public void setDatavencimento(Date datavencimento) {
+    public void setDatavencimento(LocalDate datavencimento) {
         this.datavencimento = datavencimento;
     }
 

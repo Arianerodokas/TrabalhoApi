@@ -2,10 +2,10 @@ package br.com.etec.ariane.trabalhoApi.Respository.Cliente;
 
 import br.com.etec.ariane.trabalhoApi.Respository.filter.ClienteFilter;
 import br.com.etec.ariane.trabalhoApi.model.Cliente;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,61 +23,55 @@ public class ClienteRepositoryImpl implements ClienteRepositoryQuery{
     private EntityManager manager;
 
     @Override
-
-    public Page<Clinte> filtrar(ClienteFilter clienteFilter, Pageable pageable) {
+    public Page<Cliente> filtrar(ClienteFilter clienteFilter, Pageable pageable) {
 
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
         Root<Cliente> root = criteria.from(Cliente.class);
 
-        Predicate[] predicates = criarRestricoes(clienteFilter, builder, root);
+        Predicate[] predicates = criarrestricoes(clienteFilter, builder, root);
         criteria.where(predicates);
-        criteria.orderBy(builder.asc(root.get("nomeCliente")));
+        criteria.orderBy(builder.asc(root.get("nomecliente")));
 
         TypedQuery<Cliente> query = manager.createQuery(criteria);
-        adicionarRestricoesDePaginacao(query, pageable);
+        addrestricoespaginas(query, pageable);
 
-        return new PageImpl<>(query.getResultList(), pageable, total(clienteFilter));
-
-
+        return new PageImpl<>(query.getResultList(),pageable, total(clienteFilter));
     }
 
-    private Object total(ClienteFilter clienteFilter) {
-
+    private Long total(ClienteFilter clienteFilter){
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
         Root<Cliente> root = criteria.from(Cliente.class);
 
-        Predicate[] predicates = criarRestricoes(clienteFilter, builder, root);
+        Predicate[] predicates = criarrestricoes(clienteFilter, builder, root);
         criteria.where(predicates);
-        criteria.orderBy(builder.asc(root.get("nomeCliente")));
+        criteria.orderBy(builder.asc(root.get("nomecliente")));
 
         criteria.select(builder.count(root));
+
         return manager.createQuery(criteria).getSingleResult();
-
     }
 
-    private void adicionarRestricoesDePaginacao(TypedQuery<Cliente> query, Pageable pageble) {
+    private void addrestricoespaginas(TypedQuery<Cliente> query, Pageable pageable) {
+        int paginaAtual = pageable.getPageNumber();
+        int totalRegistrosPorPagina = pageable.getPageSize();
+        int primeiroRegistroPágina = paginaAtual * totalRegistrosPorPagina;
 
-        int paginaAtual = pageble.getPageNumber();
-        int totalRegistroPagina = pageble.getPageSize();
-        int primeiroRegistroDaPagina = paginaAtual * totalRegistroPagina;
-
-        query.setFirstResult(primeiroRegistroDaPagina);
-        query.setMaxResults(totalRegistroPagina);
-
+        query.setFirstResult(primeiroRegistroPágina);
+        query.setMaxResults(totalRegistrosPorPagina);
     }
 
+    private Predicate[] criarrestricoes(ClienteFilter clientefilter, CriteriaBuilder builder, Root<Cliente> root) {
 
-    private Predicate[] criarRestricoes(ClienteFilter clienteFilter, CriteriaBuilder builder, Root<Cliente> root) {
         List<Predicate> predicates = new ArrayList<>();
 
-        if (!StringUtils.isEmpty(clienteFilter.getNomeCliente())) {
-            predicates.add(builder.like(builder.lower(root.get("nomeCliente")),
-                    "%" + clienteFilter.getNomeCliente().toLowerCase() + "%"));
+        if(!StringUtils.isEmpty(clientefilter.getNomecliente())){
+            predicates.add(builder.like(builder.lower(root.get("nomecliente")),
+                    "%" + clientefilter.getNomecliente().toLowerCase() + "%"));
         }
-        return predicates.toArray((new Predicate[predicates.size()]));
 
+        return predicates.toArray(new Predicate[predicates.size()]);
     }
 
 }

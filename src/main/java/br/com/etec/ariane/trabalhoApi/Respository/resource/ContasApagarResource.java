@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/contasApagar")
-
+@RequestMapping("/contasapagar")
 public class ContasApagarResource {
 
     @Autowired
@@ -30,6 +29,5 @@ public class ContasApagarResource {
     @GetMapping()
     public Page<ResumoContasApagar> pesquisar(ContasApagarFilter contasApagarFilter, Pageable pageable){
         return contasApagarRepository.filtrar(contasApagarFilter, pageable);
-
     }
 }

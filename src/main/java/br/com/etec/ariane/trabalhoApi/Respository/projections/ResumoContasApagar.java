@@ -1,5 +1,7 @@
 package br.com.etec.ariane.trabalhoApi.Respository.projections;
 
+import net.bytebuddy.asm.Advice;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -9,15 +11,15 @@ public class ResumoContasApagar {
     private LocalDate data;
     private LocalDate datavencimento;
     private BigDecimal valor;
-    private String nomeCliente;
 
-    public ResumoContasApagar(Integer id, LocalDate data, LocalDate datavencimento, BigDecimal valor, String nomeCliente){
+    private String nomecliente;
 
-        this.id= id;
-        this.data= data;
-        this.datavencimento= datavencimento;
-        this.valor= valor;
-        this.nomeCliente= nomeCliente;
+    public ResumoContasApagar(Integer id, LocalDate data, LocalDate datavencimento, BigDecimal valor, String nomecliente) {
+        this.id = id;
+        this.data = data;
+        this.datavencimento = datavencimento;
+        this.valor = valor;
+        this.nomecliente = nomecliente;
     }
 
     public Integer getId() {
@@ -52,11 +54,11 @@ public class ResumoContasApagar {
         this.valor = valor;
     }
 
-    public String getNomeCliente() {
-        return nomeCliente;
+    public String getNomecliente() {
+        return nomecliente;
     }
 
-    public void setNomeCliente(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
+    public void setNomecliente(String nomecliente) {
+        this.nomecliente = nomecliente;
     }
 }

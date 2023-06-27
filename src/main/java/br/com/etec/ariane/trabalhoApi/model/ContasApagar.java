@@ -2,6 +2,7 @@ package br.com.etec.ariane.trabalhoApi.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,35 +13,36 @@ public class ContasApagar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Integer Id;
-    private Date data;
-    private Date datavencimento;
+    private Integer id;
+    private LocalDate data;
+    private LocalDate datavencimento;
     private BigDecimal valor;
 
     @ManyToOne
     @JoinColumn(name="idcliente")
+    private Cliente cliente;
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
-    public Date getDatavencimento() {
+    public LocalDate getDatavencimento() {
         return datavencimento;
     }
 
-    public void setDatavencimento(Date datavencimento) {
+    public void setDatavencimento(LocalDate datavencimento) {
         this.datavencimento = datavencimento;
     }
 
@@ -57,11 +59,19 @@ public class ContasApagar {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContasApagar that = (ContasApagar) o;
-        return Id.equals(that.Id);
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id);
+        return Objects.hash(id);
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

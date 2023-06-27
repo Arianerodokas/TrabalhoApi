@@ -16,7 +16,7 @@ public class ContasApagarFilter {
 
     private BigDecimal valor;
 
-    private String nomeCliente;
+    private String nomecliente;
 
     public LocalDate getData() {
         return data;
@@ -42,11 +42,11 @@ public class ContasApagarFilter {
         this.valor = valor;
     }
 
-    public String getNomeCliente() {
-        return nomeCliente;
+    public String getNomecliente() {
+        return nomecliente;
     }
 
-    public void setNomeCliente(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
+    public void setNomecliente(String nomecliente) {
+        this.nomecliente = nomecliente;
     }
 }

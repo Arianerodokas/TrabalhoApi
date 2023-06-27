@@ -1,7 +1,6 @@
 package br.com.etec.ariane.trabalhoApi.Respository.resource;
 
 
-import br.com.etec.ariane.trabalhoApi.Respository.Cliente.Clinte;
 import br.com.etec.ariane.trabalhoApi.Respository.ClienteRepository;
 import br.com.etec.ariane.trabalhoApi.Respository.filter.ClienteFilter;
 import br.com.etec.ariane.trabalhoApi.model.Cliente;
@@ -27,7 +26,7 @@ public class ClienteResource {
     }
 
 @GetMapping()
-        public Page<Clinte> pesquisar(ClienteFilter clienteFilter, Pageable pageable){
+        public Page<Cliente> pesquisar(ClienteFilter clienteFilter, Pageable pageable){
         return clienteRepository.filtrar(clienteFilter, pageable);
 }
 

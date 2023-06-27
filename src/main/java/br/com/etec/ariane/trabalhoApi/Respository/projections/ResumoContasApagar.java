@@ -1,22 +1,32 @@
-package br.com.etec.ariane.trabalhoApi.Respository.filter;
-
-import org.springframework.format.annotation.DateTimeFormat;
+package br.com.etec.ariane.trabalhoApi.Respository.projections;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
-public class ContasApagarFilter {
+public class ResumoContasApagar {
 
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private Integer id;
     private LocalDate data;
-
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate datavencimento;
-
     private BigDecimal valor;
-
     private String nomeCliente;
+
+    public ResumoContasApagar(Integer id, LocalDate data, LocalDate datavencimento, BigDecimal valor, String nomeCliente){
+
+        this.id= id;
+        this.data= data;
+        this.datavencimento= datavencimento;
+        this.valor= valor;
+        this.nomeCliente= nomeCliente;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public LocalDate getData() {
         return data;
